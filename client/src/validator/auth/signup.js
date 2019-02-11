@@ -29,7 +29,7 @@ export default {
 					method: 'post',
 					url: 'https://www.google.com/recaptcha/api/siteverify',
 					params: {
-						secret: '6Lcd7l8UAAAAAMeuR7Prt-DBotOyo_M6faSlzJ04',
+						secret: '6Lcd7l8UAAAAAMeuR7Prt-',
 						response: captcha_token,
 						remoteip: extra.data.ip,
 					},
