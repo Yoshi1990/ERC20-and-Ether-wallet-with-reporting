@@ -1,0 +1,12 @@
+<%- include('components/header', { preview: 'Verify my email at ' + data.link }) %>
+
+<p><%- data.sentense.replace(/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,3}(\/\S*)?/g, link => {
+	return `<a href="${link}" title="${link}">${link}</a>`
+}).replace(/\n/g, '<br>') %></p>
+
+<%- include('components/button', { text: 'Verify my email address', href: data.link }) %>
+
+<p>Thanks,<br>
+<%= data.signature %></p>
+
+<%- include('components/footer') %>

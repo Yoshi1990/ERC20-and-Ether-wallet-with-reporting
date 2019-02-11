@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="description" content="<%= config.description %>">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<title><%= config.title %><% if (locals.title) { %> - <%= title %><% } %></title>
+	
+	<style>
+	html, body {
+		padding: 0;
+		margin: 0;
+		color: #000;
+		background-color: #fff;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	.center-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100vh;
+	}
+
+	label {
+		display: block;
+		width: 304px;
+		font-size: 11px;
+	}
+	
+	h3 { margin-top: 0; }
+	body { font-family: Lato; font-size:16px; letter-spacing:.5px; }
+	table {
+		margin:auto; margin-top: 15px; margin-bottom: 15px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	td, th {
+		text-align:left; padding: 5px; font-weight:normal;
+		padding: 5px;
+		font-weight: normal;
+		max-width: 30vw;
+		word-wrap: break-word;
+		font-size: 11px;
+	}
+	button {
+		margin: 0 auto 60px;
+		width: 260px;
+    	display: block;
+	}
+	.wid {
+		font-size: 7px;
+	}
+	.footer {
+		display: block;
+		max-width: 275px;
+		padding: 10px;
+		font-size: 9px;
+		text-align: center;
+		margin: 2em auto;
+	}
+	tbody tr:nth-child(even) {
+		/* background-color: rgb(240, 248, 255); */
+		background-color: rgba(240, 248, 255, 0.52);
+	}
+	thead tr th {
+		border-bottom: 1px solid rgb(39, 94, 142);
+		padding-bottom: 12px;
+	}
+	.footer-tr {
+		background-color: transparent !important;
+	}
+	.footer-tr td {
+		border-top: 1px solid rgb(39, 94, 142);
+		padding-top: 12px;
+	}
+	a {
+		color: black;
+		font-weight: bolder;
+		text-decoration: none;
+	}
+	.js-date {
+		color: transparent;
+	}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+	<script>
+	window.onload = function () {
+		var els = document.querySelectorAll('.js-date');
+		for (var i = 0, l = els.length; i < l; i++) {
+			var el = els[i]
+			if (el.textContent) {
+				el.textContent = moment(el.textContent).format('lll');
+				el.classList.remove('js-date');
+			}
+		}
+	};
+	</script>
+</head>
+<body>
+	<form method="post">
+		<% if (update && update.success) { %>
+			<a style="background: rgb(70, 188, 153); color: #FFF; border-radius: 4px; padding: 10px; margin: 10px auto; width: 200px; display: block" href="/plants">Prizes updated</a>
+		<% } %>
+		<% if (update && update.success === false) { %>
+			<div style="background: tomato; color: #FFF; border-radius: 4px; padding: 10px; margin: 10px auto; width: 200px">Failed to update prizes</div>
+		<% } %>
+		<table cellspacing="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Date</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let prize of prizes) { %>
+					<tr>
+						<td><input type="checkbox" name="ids[]" value="<%= prize.id %>" selected></td>
+						<td class="js-date"><%= prize.created_at ? prize.created_at.toISOString() : '' %></td>
+						<td><a href="mailto:<%= prize.email %>"><%= prize.email %></a></td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table>
+		<button type="submit">Mark prize as given</button>
+	</form>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<%= config.google_analytics %>"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', '<%= config.google_analytics %>');
+	</script>
+</body>
+</html>

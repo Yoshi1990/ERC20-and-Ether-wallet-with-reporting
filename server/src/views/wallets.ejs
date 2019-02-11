@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="description" content="<%= config.description %>">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<title><%= config.title %><% if (locals.title) { %> - <%= title %><% } %></title>
+	
+	<style>
+	html, body {
+		padding: 0;
+		margin: 0;
+		color: #000;
+		background-color: #fff;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	.center-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100vh;
+	}
+	
+	input {
+		height: 38px;
+		padding: 6px 10px;
+		border: 1px solid #D1D1D1;
+		border-radius: 4px;
+		box-shadow: none;
+		box-sizing: border-box;
+		margin-bottom: 1rem;
+	}
+	input:focus {
+		border: 1px solid #5d5d5d;
+    	outline: none;
+	}
+	
+	button, .btn {
+		height: 38px;
+		color: #FFF;
+		background-color: #bbbbbb;
+		padding: 0 30px;
+		text-align: center;
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 38px;
+		letter-spacing: .1rem;
+		text-transform: uppercase;
+		text-decoration: none;
+		white-space: nowrap;
+		border-radius: 4px;
+		border: 1px solid #bbbbbb;
+		cursor: pointer;
+		box-sizing: border-box;
+		outline: none;
+		margin-top: 1rem;
+	}
+	button:hover, .btn:hover {
+    	background-color: #d8d8d8;
+    	border-color: #d8d8d8;
+	}
+	
+	input, button, .btn {
+		display: block;
+		width: 304px;
+	}
+	input[type="checkbox"] {
+		display: inline;
+		width: auto;
+		height: auto;
+		margin-top: 2em;
+		transform: scale(1.2);
+		margin-right: 1em;
+		margin-bottom: 0;
+	}
+
+	label {
+		display: block;
+		width: 304px;
+		font-size: 11px;
+	}
+	
+	button.loading:after {
+		border: 3px solid #FFF;
+		border-top: 3px solid rgba(255, 255, 255, .2);
+		border-radius: 50%;
+		width: 16px;
+		height: 16px;
+		animation: loader-spin 1.25s linear infinite;
+		content: "";
+		display: inline-block;
+		position: relative;
+		left: -13px;
+		top: 6px;
+	}
+	button.loading {
+		pointer-events: none;
+		font-size: 0;
+	}
+
+	@keyframes loader-spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+	
+	#result {
+		max-width: 500px;
+		min-width: 400px;
+		padding: 2em;
+		border: 1px solid #d2d2d2;
+		border-radius: 4px;
+		word-wrap: break-word;
+		letter-spacing: 1px;
+		display: block;
+		font-size: 12px;
+	}
+	#privatekey-content, #publickey-content {
+		display: block;
+		color: #949494;
+		font-size: 11px;
+		text-align: center;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	h3 { margin-top: 0; }
+	body { font-family: Lato; font-size:16px; letter-spacing:.5px; }
+	table {
+		margin:auto; margin-top: 15px; margin-bottom: 60px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	td, th {
+		text-align:left; padding: 5px; font-weight:normal;
+		padding: 5px;
+		font-weight: normal;
+		max-width: 5.75vw;
+		word-wrap: break-word;
+		font-size: 11px;
+	}
+	.wid {
+		font-size: 7px;
+	}
+	.footer {
+		display: block;
+		max-width: 275px;
+		padding: 10px;
+		font-size: 9px;
+		text-align: center;
+		margin: 2em auto;
+	}
+	tbody tr:nth-child(even) {
+		/* background-color: rgb(240, 248, 255); */
+		background-color: rgba(240, 248, 255, 0.52);
+	}
+	thead tr th {
+		border-bottom: 1px solid rgb(39, 94, 142);
+		padding-bottom: 12px;
+	}
+	.footer-tr {
+		background-color: transparent !important;
+	}
+	.footer-tr td {
+		border-top: 1px solid rgb(39, 94, 142);
+		padding-top: 12px;
+	}
+	a {
+		color: black;
+		font-weight: bolder;
+		text-decoration: none;
+	}
+	.js-date {
+		color: transparent;
+	}
+	</style>
+</head>
+<body>
+<%
+money = n => n.toString().replace(/\d(?=(\d{3})+\.)/g, '$& ').replace(/(\.\d{3}( \d{3})*)(\d)/, '$1 $3').replace(/(\.\d{3}( \d{3})*)(\d)/, '$1 $3').replace(/(\.\d{3}( \d{3})*)(\d)/, '$1 $3').replace(/(\.\d{3}( \d{3})*)(\d)/, '$1 $3').replace(/ /g, '&nbsp;')
+usd = n => n.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ').replace(/ /g, '&nbsp;')
+%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+<script>
+window.onload = function () {
+    var els = document.querySelectorAll('.js-date');
+    for (var i = 0, l = els.length; i < l; i++) {
+        var el = els[i]
+        if (el.textContent) {
+            el.textContent = moment(el.textContent).format('lll');
+            el.classList.remove('js-date');
+        }
+    }
+};
+</script>
+
+<div style="text-align: right; margin: 15px">
+    <a href="/export/csv">Export as CSV</a>
+</div>
+<table cellspacing="0">
+    <thead>
+        <tr>
+            <th>Creation date</th>
+            <th>Public Key</th>
+            <th>ETH</th>
+            <th>ETH (USD)</th>
+            <th><%= config.erc20.symbol %></th>
+            <th><%= config.erc20.symbol %> (USD)</th>
+            <th>Last sent transfer (<%= config.erc20.symbol %>)</th>
+            <th></th>
+            <th>Last received transfer (<%= config.erc20.symbol %>)</th>
+            <th></th>
+            <th>Last sent transfer (ETH)</th>
+            <th></th>
+            <th>Last received transfer (ETH)</th>
+            <th></th>
+            <th>Email</th>
+            <th>IP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let wallet of wallets) { %>
+            <tr>
+                <td class="js-date"><%= wallet.created_at ? wallet.created_at.toISOString() : '' %></td>
+                <td><span class="wid"><%= wallet.public_key %></span></td>
+                
+                <td><%- money(wallet.balance_eth) %> ETH</td>
+                <% if (token_values.ETH) { %>
+                    <td title="@ $<%= token_values.ETH.price_usd %>">
+                        $<%- usd(wallet.balance_eth * token_values.ETH.price_usd) %>
+                    </td>
+                <% } else { %>
+                    <td>?</td>
+                <% } %>
+
+                <td><%- money(wallet.balance_erc20) %> <%= config.erc20.symbol %></td>
+                <% if (token_values[config.erc20.symbol]) { %>
+                    <td title="@ $<%= token_values[config.erc20.symbol].price_usd %>">
+                        $<%- usd(wallet.balance_erc20 * token_values[config.erc20.symbol].price_usd) %>
+                    </td>
+                <% } else { %>
+                    <td>?</td>
+                <% } %>
+
+                <% let tx = wallet.lastERC20SentTransfer; if (tx && tx.id) { %>
+                    <td><span class="wid"><%= tx.to %></span></td><td><%- money(tx.amount) %> <%= config.erc20.symbol %></td>
+                <% } else { %>
+                    <td></td><td></td>
+                <% } %>
+
+                <% tx = wallet.lastERC20ReceivedTransfer; if (tx && tx.id) { %>
+                    <td><span class="wid"><%= tx.from %></span></td><td><%- money(tx.amount) %> <%= config.erc20.symbol %></td>
+                <% } else { %>
+                    <td></td><td></td>
+                <% } %>
+
+                <% tx = wallet.lastETHSentTransfer; if (tx && tx.id) { %>
+                    <td><span class="wid"><%= tx.to %></span></td><td><%- money(tx.amount) %> ETH</td>
+                <% } else { %>
+                    <td></td><td></td>
+                <% } %>
+
+                <% tx = wallet.lastRTHReceivedTransfer; if (tx && tx.id) { %>
+                    <td><span class="wid"><%= tx.from %></span></td><td><%- money(tx.amount) %> ETH</td>
+                <% } else { %>
+                    <td></td><td></td>
+                <% } %>
+
+                <td><a href="mailto:<%= wallet.username %>"><%= wallet.username %></a></td>
+                <td><a href="https://tools.keycdn.com/geo?host=<%= wallet.ip %>"><%= wallet.ip %></a></td>
+            </tr>
+        <% } %>
+
+        <%
+        total_eth = wallets.reduce((r, w) => r + w.balance_eth, 0)
+        total_erc20 = wallets.reduce((r, w) => r + w.balance_erc20, 0)
+        %>
+        <tr class="footer-tr">
+            <td colspan="2">Total</td>
+            <td><%- money(total_eth) %>ETH</td>
+            <% if (token_values.ETH) { %>
+                <td title="@ $<%= token_values.ETH.price_usd %>">
+                    $<%- usd(total_eth * token_values.ETH.price_usd) %>
+                </td>
+            <% } else { %>
+                <td>?</td>
+            <% } %>
+            <td><%- money(total_erc20) %> <%= config.erc20.symbol %></td>
+            <% if (token_values[config.erc20.symbol]) { %>
+                <td title="@ $<%= token_values[config.erc20.symbol].price_usd %>">
+                    $<%- usd(total_erc20 * token_values[config.erc20.symbol].price_usd) %>
+                </td>
+            <% } else { %>
+                <td>?</td>
+            <% } %>
+            <td colspan="10"></td>
+        </tr>
+    </tbody>
+</table>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<%= config.google_analytics %>"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', '<%= config.google_analytics %>');
+	</script>
+</body>
+</html>
