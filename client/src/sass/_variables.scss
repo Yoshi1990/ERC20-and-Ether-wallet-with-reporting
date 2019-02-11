@@ -1,0 +1,45 @@
+@import "functions/index";
+
+// Colors
+$color-interval: 8%;
+$primary: #6E7B9F;
+$secondary: #6c757d;
+$success: #01b387;
+$warning: #fd7e14;
+$danger: #f0506e;
+$white: #fff;
+$black: #000;
+
+// Font
+$font-family: 'Lato', sans-serif;
+$font-weight-normal: 300;
+$font-weight-bold: 500;
+$font-size: 0.9rem;
+$font-color: lighten($black, $color-interval);
+
+// Spaces
+$spacer: 16px;
+$table-cell-padding: $spacer / 2;
+
+// Break points
+$breakpoints: (
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px
+);
+
+$transition-duration: 0.2s;
+
+// List of z indexes
+$zindexPageLoader: 90000;
+$zindexModal: 80000;
+$zindexAuth: 70000;
+
+@import "mixins/index";
+
+// Export for JS
+:export {
+	primary: $primary;
+	transition_duration: $transition-duration;
+}

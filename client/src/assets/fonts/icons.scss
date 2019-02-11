@@ -1,0 +1,64 @@
+$icon-download: "\ea01";
+$icon-logout: "\ea02";
+$icon-upload: "\ea03";
+
+@font-face {
+    font-family: icons;
+    
+    src: url("~@/assets/fonts/icons.woff2") format("woff2"), url("~@/assets/fonts/icons.woff") format("woff"); 
+    font-style: normal;
+    font-weight: 400;
+}
+
+%icon {
+    display: inline-block;
+    transform: translate(0, 0);
+    text-rendering: auto;
+    font: normal normal 400 14px/1 icons;
+    font-size: inherit;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon {
+    @extend %icon;
+}
+
+.icon-lg {
+    vertical-align: -15%;
+    line-height: 0.75em;
+    font-size: 1.33333333em;
+}
+
+.icon-2x {
+    font-size: 2em;
+}
+
+.icon-3x {
+    font-size: 3em;
+}
+
+.icon-4x {
+    font-size: 4em;
+}
+
+.icon-5x {
+    font-size: 5em;
+}
+
+.icon-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+.icon-download::before {
+    content: "\ea01";
+}
+
+.icon-logout::before {
+    content: "\ea02";
+}
+
+.icon-upload::before {
+    content: "\ea03";
+}

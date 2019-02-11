@@ -1,0 +1,24 @@
+/*
+ * Everything inside .scrollable will be sticky,
+ * Just .scrollable__content will be scrollable
+ *
+ * Ex:
+ * <div class="scrollable">
+ *      <div>Header</div>
+ *      <div>Sub header</div>
+ *      <div class="scrollable__content">
+ *          My long div with scrollable content
+ *      </div>
+ *      <div>Footer</div>
+ * </div>
+ */
+.scrollable {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	
+	> .scrollable__content {
+		flex: 1;
+		overflow: auto;
+	}
+}

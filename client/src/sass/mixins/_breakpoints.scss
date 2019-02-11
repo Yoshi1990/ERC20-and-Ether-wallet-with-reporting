@@ -1,0 +1,68 @@
+// Mixins for only size
+@mixin xl {
+	@media (min-width: #{map-get($breakpoints, 'lg') + 1}) and (max-width: #{map-get($breakpoints, 'xl')}) {
+		@content;
+	}
+}
+@mixin lg {
+	@media (min-width: #{map-get($breakpoints, 'md') + 1}) and (max-width: #{map-get($breakpoints, 'lg')}) {
+		@content;
+	}
+}
+@mixin md {
+	@media (min-width: #{map-get($breakpoints, 'sm') + 1}) and (max-width: #{map-get($breakpoints, 'md')}) {
+		@content;
+	}
+}
+@mixin sm {
+	@media (max-width: #{map-get($breakpoints, 'sm')}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+  @media only screen and (max-width: #{map-get($breakpoints, 'sm')}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (max-width: #{map-get($breakpoints, 'sm') + 1}) {
+    @content;
+  }
+}
+
+// Size below $breakpoint name (or size)
+@mixin below($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: #{map-get($breakpoints, $breakpoint)}) {
+            @content;
+        }
+    }
+    @else {
+        @media (max-width: #{$breakpoint}) {
+            @content;
+        }
+    }
+}
+
+// Size higher than $breakpoint name (or size)
+@mixin over($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+            @content;
+        }
+    }
+    @else {
+        @media (min-width: #{$breakpoint}) {
+            @content;
+        }
+    }
+}
+
+// High dpi
+@mixin retina {
+	@media (-webkit-min-device-pixel-ratio : 1.5), (min-device-pixel-ratio : 1.5) {
+		@content;
+	}
+}

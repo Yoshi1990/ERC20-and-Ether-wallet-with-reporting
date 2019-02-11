@@ -1,0 +1,84 @@
+@import "variables";
+
+@import "~normalize.css";
+@import "utils/index";
+@import "~@/assets/fonts/icons";
+
+body {
+    font-family: $font-family;
+    font-weight: $font-weight-normal;
+    font-size: $font-size;
+    color: $font-color;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+// Old code
+/*
+#result {
+    max-width: 500px;
+    min-width: 400px;
+    padding: 2em;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    word-wrap: break-word;
+    letter-spacing: 1px;
+    display: block;
+    font-size: 12px;
+}
+#privatekey-content, #publickey-content {
+    display: block;
+    color: #949494;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+h3 { margin-top: 0; }
+body { font-family: Lato; font-size:16px; letter-spacing:.5px; }
+table {
+    margin:auto; margin-top: 15px; margin-bottom: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+td, th {
+    text-align:left; padding: 5px; font-weight:normal;
+    padding: 5px;
+    font-weight: normal;
+    max-width: 5.75vw;
+    word-wrap: break-word;
+    font-size: 11px;
+}
+.wid {
+    font-size: 7px;
+}
+.footer {
+    display: block;
+    max-width: 275px;
+    padding: 10px;
+    font-size: 9px;
+    text-align: center;
+    margin: 2em auto;
+}
+tbody tr:nth-child(even) {
+    background-color: rgba(240, 248, 255, 0.52);
+}
+thead tr th {
+    border-bottom: 1px solid rgb(39, 94, 142);
+    padding-bottom: 12px;
+}
+.footer-tr {
+    background-color: transparent !important;
+}
+.footer-tr td {
+    border-top: 1px solid rgb(39, 94, 142);
+    padding-top: 12px;
+}
+a {
+    color: black;
+    font-weight: bolder;
+    text-decoration: none;
+}*/

@@ -1,0 +1,23 @@
+.loader {
+	border: 3px solid;
+	border-top: 3px solid rgba($primary, .2);
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	animation: loader-spin 1.25s linear infinite;
+	display: inline-block;
+
+	&--big {
+		width: 32px;
+		height: 32px;
+	}
+	&--small {
+		width: 9px;
+		height: 9px;
+	}
+}
+
+@keyframes loader-spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,40 @@
+/* Fake table */
+.fake-table {
+	position: relative;
+	font-size: 0;
+	letter-spacing: 0;
+	
+	// Cells
+	.fake-th, .fake-tr {
+		& > div {
+			display: inline-block;
+			word-break: break-all;
+			width: 100%;
+			padding: $table-cell-padding;
+			vertical-align: top;
+			font-size: $font-size;
+		}
+	}
+
+	// Header
+	.fake-th {
+		font-weight: bolder;
+		text-transform: capitalize;
+	}
+
+	// Rows
+	.fake-tr {
+		&:nth-of-type(even) {
+			background-color: rgba($black, $color-interval / 100%);
+		}
+	}
+	
+	/* Loader in the table */
+	.loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 999999;
+	}
+}

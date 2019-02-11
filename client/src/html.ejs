@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="description" content="<%= htmlWebpackPlugin.options.config.description %>">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<title><%= htmlWebpackPlugin.options.config.title %></title>
+
+	<style><%= compilation.assets['critical.css'].source() %></style><% htmlWebpackPlugin.files.css = [] %>
+</head>
+<body>
+	<div class="page-loader">
+		<div class="page-loader__loader"></div>
+	</div>
+	<div id="main"></div>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.config.google_analytics %>"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', '<%= htmlWebpackPlugin.options.config.google_analytics %>');
+	</script>
+</body>
+</html>

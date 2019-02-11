@@ -1,0 +1,38 @@
+.text-lowercase {
+    text-transform: lowercase;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.text-capitalize {
+    text-transform: capitalize;
+}
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+
+.text-warning {
+    color: $warning;
+}
+.text-danger {
+    color: $danger;
+}
+.text-success {
+    color: $success;
+}
+
+a {
+    color: $primary;
+    &:hover {
+        color: shade($primary, $color-interval);
+    }
+}
